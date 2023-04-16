@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "declaration": true,
+    "outDir": "eslint-plugin-confrontend/rules",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext"
+  },
+  "include": ["ts-rules/**/*.ts"],
+  "exclude": ["node_modules"]
+}
