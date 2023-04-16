@@ -1,35 +1,35 @@
-import { RuleTester } from "eslint";
+import { RuleTester } from "@typescript-eslint/utils/dist/eslint-utils";
 import rule from "./component-name-pascal-case";
 
 const ruleTester = new RuleTester({
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: "module",
     ecmaFeatures: {
       jsx: true,
     },
   },
 });
 
-ruleTester.run("react-functional-component-naming-convention", rule, {
+// TODO fix any cas
+ruleTester.run("react-functional-component-naming-convention", rule as any, {
   valid: [
-    `const MyComponent = () => <div>Hello World</div>;`,
-    `const MyOtherComponent = function() { return <div>Hello World</div>; };`,
+    "const MyComponent = () => <div>Hello World</div>;",
+    "const MyComponent = function() { return <div>Hello World</div>; }",
   ],
   invalid: [
     {
-      code: `const myComponent = () => <div>Hello World</div>;`,
+      code: "const myComponent = () => <div>Hello World</div>;",
       errors: [
         {
-          message: "React functional component names must be in PascalCase",
+          messageId: "invalidName",
         },
       ],
     },
     {
-      code: `const my_other_component = function() { return <div>Hello World</div>; };`,
+      code: "const my_component = function() { return <div>Hello World</div>; }",
       errors: [
         {
-          message: "React functional component names must be in PascalCase",
+          messageId: "invalidName",
         },
       ],
     },

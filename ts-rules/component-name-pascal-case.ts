@@ -1,34 +1,36 @@
-import { Rule } from 'eslint';
-import * as ESTree from 'estree';
+import { TSESTree } from "@typescript-eslint/utils";
+import { RuleContext } from "@typescript-eslint/utils/dist/ts-eslint";
 
-const rule: Rule.RuleModule = {
+const rule = {
   meta: {
-    type: 'suggestion',
+    type: "suggestion",
     docs: {
       description:
-        'Enforce a naming convention for React functional components',
-      category: 'Stylistic Issues',
+        "Enforce a naming convention for React functional components",
+      category: "Stylistic Issues",
       recommended: true,
     },
     schema: [],
+    messages: {
+      invalidName: "React functional component names must be in PascalCase",
+    },
   },
-  create(context) {
+  create(context: RuleContext<"invalidName", []>) {
     return {
-      VariableDeclarator(node: ESTree.Node) {
-        const variableDeclarator = node as ESTree.VariableDeclarator;
+      VariableDeclarator(node: TSESTree.Node) {
+        const variableDeclarator = node as TSESTree.VariableDeclarator;
         if (
           variableDeclarator.init &&
-          (variableDeclarator.init.type === 'ArrowFunctionExpression' ||
-            variableDeclarator.init.type === 'FunctionExpression')
+          (variableDeclarator.init.type === "ArrowFunctionExpression" ||
+            variableDeclarator.init.type === "FunctionExpression")
         ) {
           if (
-            variableDeclarator.id.type === 'Identifier' &&
+            variableDeclarator.id.type === "Identifier" &&
             !/^[A-Z][a-zA-Z]*$/.test(variableDeclarator.id.name)
           ) {
             context.report({
               node,
-              message:
-                'React functional component names must be in PascalCase',
+              messageId: "invalidName",
             });
           }
         }

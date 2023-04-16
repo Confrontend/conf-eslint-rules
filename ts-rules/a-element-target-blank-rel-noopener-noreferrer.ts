@@ -1,7 +1,6 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import {
   RuleContext,
-  RuleListener,
 } from "@typescript-eslint/utils/dist/ts-eslint";
 
 interface Options {
